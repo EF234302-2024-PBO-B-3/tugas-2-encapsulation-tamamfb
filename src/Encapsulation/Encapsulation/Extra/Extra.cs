@@ -4,19 +4,49 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Encapsulation.Extra;
+namespace Encapsulation.Extra
+{
+    public class UserAccount
+    {
+        private string username;
+        private string password;
+        public string Email { get; set; }
 
-/*
- * Tuliskan spesifikasi soal Anda disini. 
- * Kelas yang dibuat, atribut apa saja yang dibutuhkan, metode apa saja yang dibutuhkan, validasi atau aturan apa yang harus dilakukan.
- */
+        public UserAccount(string username, string email, string password)
+        {
+            this.username = username;
+            this.Email = email;
+            SetPassword(password);
+        }
 
+        private void SetPassword(string password)
+        {
+            if (IsValidPassword(password))
+            {
+                this.password = password;
+            }
+            else
+            {
+                throw new ArgumentException("Password does not meet the requirements.");
+            }
+        }
 
-// Tulis disini
+        public bool ChangePassword(string oldPassword, string newPassword)
+        {
+            if (this.password == oldPassword && IsValidPassword(newPassword))
+            {
+                this.password = newPassword;
+                return true;
+            }
+            return false;
+        }
 
-
-/*
- * Implementasikan solusi kelas dari soal Anda disini dan eksekusi implementasinya di Program.cs
- */
-
-// Tulis disini
+        private bool IsValidPassword(string password)
+        {
+            bool hasUpperCase = password.Any(char.IsUpper);
+            bool hasLowerCase = password.Any(char.IsLower);
+            bool hasNumbers = password.Any(char.IsDigit);
+            return password.Length >= 8 && hasUpperCase && hasLowerCase && hasNumbers;
+        }
+    }
+}

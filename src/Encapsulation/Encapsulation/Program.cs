@@ -3,6 +3,7 @@ using Encapsulation.Employment;
 using System;
 using Encapsulation.Calendar;
 using Encapsulation.Banking;
+using Encapsulation.Extra;
 
 namespace Encapsulation;
 
@@ -53,6 +54,15 @@ public class Program
         Console.WriteLine($"Balance after withdrawal: {account.GetBalance()}");
 
         // Extra
-
+        try
+        {
+            UserAccount user = new UserAccount("johndoe", "john.doe@example.com", "Secure123!");
+            bool passwordChanged = user.ChangePassword("Secure123!", "NewSecure123!");
+            Console.WriteLine($"Password changed: {passwordChanged}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+        }
     }
 }
